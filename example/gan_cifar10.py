@@ -17,7 +17,7 @@ lr = 0.0003
 beta1 = 0.5
 batch_size = 100
 rand_shape = (batch_size, 100)
-num_epoch = 100
+num_epoch = 10000
 data_shape = (batch_size, 3, 32, 32)
 context = mx.gpu()
 
@@ -42,9 +42,9 @@ gmod.init_optimizer(
         "beta1": beta1,
 })
 
-data_dir = './../../mxnet/example/image-classification/cifar10/'
+data_dir = '/home/shhs/usr/data/cifar10/'
 train = mx.io.ImageRecordIter(
-    path_imgrec = data_dir + "train.rec",
+    path_imgrec = data_dir + "cifar10_train.rec",
     data_shape = data_shape[1:],
     batch_size = batch_size,
     shuffle=True)

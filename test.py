@@ -1,11 +1,8 @@
 import logging
 import numpy as np
 import sys
-#sys.path.insert(0, '../../detection/mxnet/python')
+sys.path.insert(0, '../../detection/mxnet/python')
 import mxnet as mx
-import sys
-
-sys.path.append("..")
 
 from mxgan import module, generator, encoder, viz
 
@@ -18,7 +15,7 @@ lr = 0.0005
 beta1 = 0.5
 batch_size = 100
 rand_shape = (batch_size, 100)
-num_epoch = 1000
+num_epoch = 100
 data_shape = (batch_size, 1, 28, 28)
 context = mx.gpu()
 
@@ -42,8 +39,7 @@ gmod.init_optimizer(
         "beta1": beta1,
 })
 
-data_dir = '../../../../usr/data/mnist/'
-#data_dir = './../../mxnet/example/image-classification/mnist/'
+data_dir = './../../../usr/data/mnist/'
 train = mx.io.MNISTIter(
     image = data_dir + "train-images-idx3-ubyte",
     label = data_dir + "train-labels-idx1-ubyte",
@@ -65,7 +61,6 @@ for epoch in range(num_epoch):
 
         if t % 100 == 0:
             logging.info("epoch: %d, iter %d, metric=%s", epoch, t, metric_acc.get())
-
             viz.imshow("gout", gmod.temp_outG[0].asnumpy(), 2)
             diff = gmod.temp_diffD[0].asnumpy()
             diff = (diff - diff.mean()) / diff.std() + 0.5
